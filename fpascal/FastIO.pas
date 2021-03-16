@@ -11,7 +11,7 @@ type
   PTextRec = ^TextRec;
 
 procedure FastLowerCase(PS: PChar); inline;
-procedure FastReadStr(PT: PTextRec; var S: ShortString); inline;
+procedure FastReadLowerStr(PT: PTextRec; var S: ShortString); inline;
 function FastCheckEOF(PT: PTextRec): Boolean; inline;
 
 implementation
