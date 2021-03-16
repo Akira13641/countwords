@@ -62,13 +62,6 @@ begin
     BufPos := 0;
     BufEnd := 0;
   end;
-  POut := @Output;
-  with PTextRec(POut)^ do begin
-    BufPtr := @InBuf;
-    BufSize := 65535;
-    BufPos := 0;
-    BufEnd := 0;
-  end;
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
   while True do begin
@@ -86,6 +79,7 @@ begin
   // Sort the array.
   THelper.Sort(EA);
   // Display the array.
+  POut := @Output;
   for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
