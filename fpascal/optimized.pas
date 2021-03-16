@@ -18,21 +18,25 @@ uses
   lgArrayHelpers,
   lgHashMultiSet;
 
+// Some type aliases for the sake of convenience, and a sorting comparator implementation.
 type
-  // Some type aliases for the sake of convenience.
   TStrCounter = TGLiteHashMultiSetLP<ShortString, ShortString>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
+  
   TStrEntryHelper = record
     class function Less(constref L, R: TStrEntry): Boolean; static; inline;
   end;
-  THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
-
-  // We'll use this to sort our final array of string / integer pairs below.
+  
+  // The static sorting method we use later expects a function called `Less` with a signature
+  // that matches the following (for any `T` that `L` and `R) might be.
   class function TStrEntryHelper.Less(constref L, R: TStrEntry): Boolean;
   begin
     // Force the largest-to-smallest order that we want
     Result := L.Count > R.Count;
   end;
+  
+type
+  THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
 var
   InBuf: array[0..65534] of Byte;
