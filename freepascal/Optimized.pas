@@ -25,7 +25,7 @@ type
   THelper = TGRegularArrayHelper<TStrEntry>;
 
   // We'll use this to sort our final array of string / integer pairs below.
-  function CompareEntries(const L, R: TStrEntry): Boolean; {$ifndef DEBUG}inline;{$endif}
+  function CompareEntries(const L, R: TStrEntry): Boolean; inline;
   begin
     Result := L.Count > R.Count;
   end;
@@ -57,7 +57,7 @@ begin
   // Get a contiguous array of all the string / count pairs.
   EA := SC.ToEntryArray();
   // Sort the array.
-  THelper.Sort(EA, ComparePairs);
+  THelper.Sort(EA, CompareEntries);
   // Display the array.
   for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as

@@ -11,9 +11,9 @@ type
   FileFunc = procedure(var T: TextRec);
   PTextRec = ^TextRec;
 
-procedure FastLowerCase(PS: PChar); {$ifndef DEBUG}inline;{$endif}
-procedure FastReadStr(PT: PTextRec; var S: ShortString); {$ifndef DEBUG}inline;{$endif}
-function FastCheckEOF(PT: PTextRec): Boolean; {$ifndef DEBUG}inline;{$endif}
+procedure FastLowerCase(PS: PChar); inline;
+procedure FastReadStr(PT: PTextRec; var S: ShortString); inline;
+function FastCheckEOF(PT: PTextRec): Boolean; inline;
 
 implementation
 
