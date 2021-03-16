@@ -43,7 +43,7 @@ type
   THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
 var
-  InBuf: array[0..131071] of Byte;
+  InBuf: array[0..65534] of Byte;
   PIn: PTextRec;
   POut: PText;
   S: ShortString = '';
@@ -58,14 +58,14 @@ begin
   PIn := @Input;
   with PIn^ do begin
     BufPtr := @InBuf;
-    BufSize := 131072;
+    BufSize := 65535;
     BufPos := 0;
     BufEnd := 0;
   end;
   POut := @Output;
   with PTextRec(POut)^ do begin
     BufPtr := @InBuf;
-    BufSize := 131072;
+    BufSize := 65535;
     BufPos := 0;
     BufEnd := 0;
   end;
@@ -89,5 +89,5 @@ begin
   for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    WriteLn(POut^, Key, ' ', Count);
+    Write(POut^, Key, ' ', Count, #10);
 end.
