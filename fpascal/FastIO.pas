@@ -59,7 +59,7 @@ begin
   Str(I, Result);
 end;
 
-function FastFormat(var S: ShortString; const I: PtrInt): ShortString;
+function FastFormat(constref S: ShortString; const I: PtrInt): ShortString;
 begin
   Result := S + ' ' + FastToStr(I) + #10;
 end;
