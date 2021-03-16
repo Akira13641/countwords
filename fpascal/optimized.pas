@@ -63,9 +63,20 @@ begin
     BufEnd := 0;
   end;
   POut := @Output;
+  with PTextRec(POut)^ do begin
+    BufPtr := @InBuf;
+    BufSize := 131072;
+    BufPos := 0;
+    BufEnd := 0;
+  end;
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
-  while not FastCheckEOF(PIn) do begin
+  while True do begin
+    if PIn^.BufPos >= PIn.BufEnd then begin
+      FileFunc(PIn^.InOutFunc)(PIn^);
+      if PIn^.BufPos >= PIn^.BufEnd then
+        Break;
+    end;
     FastReadLowerStr(PIn, S);
     if S[0] = #0 then Continue;
     SC.Add(S);
