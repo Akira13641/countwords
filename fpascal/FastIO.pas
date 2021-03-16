@@ -28,7 +28,7 @@ begin
   end;
 end;
 
-procedure FastReadStr(PT: PTextRec; var S: ShortString);
+procedure FastReadLowerStr(PT: PTextRec; var S: ShortString);
 var
   C: Char;
   P: PChar;
@@ -41,6 +41,7 @@ begin
     C := PT^.BufPtr^[PT^.BufPos];
     Inc(PT^.BufPos);
     if C in [#10, #32] then Break;
+    if C in ['A'..'Z'] then C := Char(Byte(C) + 32);
     P^ := C;
     Inc(P);
     Inc(S[0]);
