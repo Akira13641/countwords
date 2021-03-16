@@ -2,5 +2,5 @@
 	path = lgenerics
 	url = https://github.com/avk959/LGenerics.git
 [submodule "freepascal/lgenerics"]
-	path = freepascal/lgenerics
+	path = fpascal/lgenerics
 	url = https://github.com/avk959/LGenerics.git

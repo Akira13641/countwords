@@ -159,6 +159,6 @@ php simple.php <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
 echo Free Pascal optimized
-fpc -B -Ci- -Cr- -Fi./freepascal/lgenerics/lgenerics -Fu./freepascal -FU./freepascal/lib -Fu./freepascal/lgenerics/lgenerics -g- -O4 -o./freepascal/optimized-pascal -XXs ./freepascal/optimized.pas
-./freepascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
+./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
