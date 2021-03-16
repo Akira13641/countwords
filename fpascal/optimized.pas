@@ -49,9 +49,8 @@ begin
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
   while not FastCheckEOF(PIn) do begin
-    FastReadStr(PIn, S);
+    FastReadLowerStr(PIn, S);
     if S[0] = #0 then Continue;
-    FastLowercase(@S[1]);
     SC.Add(S);
   end;
   // Get a contiguous array of all the string / count pairs.
