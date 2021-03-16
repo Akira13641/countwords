@@ -39,7 +39,7 @@ type
   THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
 var
-  InBuf: array[0..65534] of Byte;
+  InOutBuf: array[0..65534] of Byte;
   PIn: PTextRec;
   POut: PText;
   S: ShortString = '';
@@ -53,12 +53,18 @@ begin
   // IO related that implicitly involves them.
   PIn := @Input;
   with PIn^ do begin
-    BufPtr := @InBuf;
+    BufPtr := @InOutBuf;
     BufSize := 65535;
     BufPos := 0;
     BufEnd := 0;
   end;
   POut := @Output;
+  with PTextRec(POut)^ do begin
+    BufPtr := @InOutBuf;
+    BufSize := 65535;
+    BufPos := 0;
+    BufEnd := 0;
+  end;
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
   while not FastCheckEOF(PIn) do begin
