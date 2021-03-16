@@ -63,6 +63,12 @@ begin
     BufEnd := 0;
   end;
   POut := @Output;
+  with PTextRec(POut)^ do begin
+    BufPtr := @InOutBuf;
+    BufSize := 65535;
+    BufPos := 0;
+    BufEnd := 0;
+  end;
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
   while not FastCheckEOF(PIn) do begin
@@ -76,11 +82,10 @@ begin
   THelper.Sort(EA);
   // Display the array.
   PFirst := @EA[0];
-  while PFirst < PEntry(PEntry(@EA[High(EA)]) + 1) do begin
+  while PFirst < (@EA[High(EA)] + 1) do begin
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    with PFirst^ do
-      Write(POut^, Key, ' ', Count, #10);
+    Write(POut^, PFirst^.Key, ' ', PFirst^.Count, #10);
     Inc(PFirst);
   end;
 end.
