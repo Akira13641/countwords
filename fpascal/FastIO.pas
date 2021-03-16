@@ -3,7 +3,6 @@ unit FastIO;
 {$mode Delphi}{$H+}{$J-}
 {$ImplicitExceptions Off}
 {$RangeChecks Off}
-{$COperators On}
 
 interface
 
