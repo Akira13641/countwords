@@ -15,6 +15,7 @@ before_install:
 install:
   - cat kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt >kjvbible_x10.txt
   - fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
+  - go build -o optimized-go optimized.go
 
 script:
   - set -e
@@ -24,5 +25,12 @@ script:
   - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
   - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
   - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt  
+  - git diff --exit-code output.txt
+  - echo Go optimized
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
   - git diff --exit-code output.txt
 
