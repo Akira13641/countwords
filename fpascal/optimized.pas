@@ -43,12 +43,12 @@ type
   THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
 var
-  InBuf: array[0..65534] of Byte;
+  InBuf: array[0..131071] of Byte;
   PIn: PTextRec;
   POut: PText;
   S: ShortString = '';
   SC: TStrCounter;
-  PFirst: PStrEntry;
+  E: TStrEntry;
   EA: TStrCounter.TEntryArray;
 
 begin
@@ -58,7 +58,7 @@ begin
   PIn := @Input;
   with PIn^ do begin
     BufPtr := @InBuf;
-    BufSize := 65535;
+    BufSize := 131072;
     BufPos := 0;
     BufEnd := 0;
   end;
@@ -75,11 +75,8 @@ begin
   // Sort the array.
   THelper.Sort(EA);
   // Display the array.
-  PFirst := @EA[0];
-  while PFirst < (@EA[High(EA)] + 1) do begin
+  for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    Write(POut^, FastFormat(PFirst^.Key, PFirst^.Count));
-    Inc(PFirst);
-  end;
+    Write(POut^, FastFormat(Key, Count));
 end.
