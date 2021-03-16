@@ -12,6 +12,7 @@ type
 
 procedure FastLowerCase(PS: PChar); inline;
 procedure FastReadLowerStr(PT: PTextRec; var S: ShortString); inline;
+procedure FastSetTextBuf(PT: PTextRec; var Buf; const Size: PtrInt); inline;
 function FastCheckEOF(PT: PTextRec): Boolean; inline;
 
 implementation
@@ -45,6 +46,16 @@ begin
     P^ := C;
     Inc(P);
     Inc(S[0]);
+  end;
+end;
+
+procedure FastSetTextBuf(PT: PTextRec; var Buf; const Size: PtrInt);
+begin
+  with PT^ do begin
+    BufPtr := @Buf;
+    BufSize := Size;
+    BufPos := 0;
+    BufEnd := 0;
   end;
 end;
 
