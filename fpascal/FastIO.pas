@@ -47,6 +47,8 @@ begin
   {$ifndef Linux}
     // The next line is always false on Linux, so don't bother with it there.
     Result := CtrlZMarksEOF and (PT^.BufPtr^[PT^.BufPos] = #26);
+  {$else}
+    Result := False;
   {$endif}
 end;
 
