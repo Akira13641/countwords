@@ -8,6 +8,10 @@ program Optimized;
 // Suppresses a spurious warning about a static array buffer we use below not being "initialized",
 // which is in no way necessary in this particular context.
 {$Warn 5058 Off}
+// Our micro-optimized pointer arithmetic while loop near the end of the program requires the next
+// two compiler directives to be enabled.
+{$PointerMath On}
+{$TypedAddress On}
 
 uses
   // A few speed-optimized IO helper routines that do less "safety checks" internally
@@ -22,6 +26,7 @@ uses
 type
   TStrCounter = TGLiteHashMultiSetLP<ShortString, ShortString>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
+  PStrEntry = ^TStrEntry;
   
   TStrEntryHelper = record
     class function Less(constref L, R: TStrEntry): Boolean; static; inline;
@@ -44,7 +49,7 @@ var
   POut: PText;
   S: ShortString = '';
   SC: TStrCounter;
-  E: TStrEntry;
+  PFirst, PLast: PStrEntry;
   EA: TStrCounter.TEntryArray;
 
 begin
@@ -77,8 +82,13 @@ begin
   // Sort the array.
   THelper.Sort(EA);
   // Display the array.
-  for E in EA do with E do
+  PFirst := @EA[0];
+  PLast := @EA[High(EA)] + 1;
+  while PFirst != PLast do begin
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    Write(POut^, Key, ' ', Count, #10);
+    with PFirst^ do
+      Write(POut^, Key, ' ', Count, #10);
+    Inc(PFirst);
+  end;
 end.
