@@ -79,7 +79,7 @@ begin
   while PFirst < (@EA[High(EA)] + 1) do begin
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    Write(POut^, PFirst^.Key, ' ', PFirst^.Count, #10);
+    Write(POut^, FastFormat(PFirst^.Key, PFirst^.Count));
     Inc(PFirst);
   end;
 end.
