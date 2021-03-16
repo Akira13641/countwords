@@ -40,10 +40,8 @@ begin
       FileFunc(PT^.InOutFunc)(PT^);
     C := PT^.BufPtr^[PT^.BufPos];
     Inc(PT^.BufPos);
-    if C in [#10, #32] then
-      Break
-    else if C in ['A'..'Z'] then
-      C := Char(Byte(C) + 32);
+    if C in [#10, #32] then Break;
+    if C in ['A'..'Z'] then C := Char(Byte(C) + 32);
     P^ := C;
     Inc(P);
     Inc(S[0]);
