@@ -52,7 +52,12 @@ begin
   // compiler will continuously generate code that goes and "gets" them anytime we do anything
   // IO related that implicitly involves them.
   PIn := @Input;
-  FastSetTextBuf(PIn, InBuf, 65535);
+  with PIn^ do begin
+    BufPtr := @InBuf;
+    BufSize := 65535;
+    BufPos := 0;
+    BufEnd := 0;
+  end;
   POut := @Output;
   // All we have to do is keep adding the strings to the multiset, as it automatically generates
   // the counts we want in the process.
