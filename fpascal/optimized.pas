@@ -5,13 +5,12 @@ program Optimized;
 // By default Free Pascal generates exception handling code to pad certain things,
 // which for our extremely performance-focused purposes here is not desirable.
 {$ImplicitExceptions Off}
+// Our micro-optimized pointer arithmetic while loop near the end of the program requires the
+// compiler directive below to be enabled.
+{$PointerMath On}
 // Suppresses a spurious warning about a static array buffer we use below not being "initialized",
 // which is in no way necessary in this particular context.
 {$Warn 5058 Off}
-// Our micro-optimized pointer arithmetic while loop near the end of the program requires the next
-// two compiler directives to be enabled.
-{$PointerMath On}
-{$TypedAddress On}
 
 uses
   // A few speed-optimized IO helper routines that do less "safety checks" internally
