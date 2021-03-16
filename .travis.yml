@@ -1,0 +1,36 @@
+language: c
+sudo: true
+
+jobs:
+  include:
+  - os: linux
+    dist: focal
+
+before_install:
+  - wget -c https://versaweb.dl.sourceforge.net/project/lazarus/Lazarus%20Linux%20amd64%20DEB/Lazarus%202.0.12/fpc-src_3.2.0-1_amd64.deb
+  - wget -c https://cfhcable.dl.sourceforge.net/project/lazarus/Lazarus%20Linux%20amd64%20DEB/Lazarus%202.0.12/fpc-laz_3.2.0-1_amd64.deb
+  - sudo apt install ./fpc-src_3.2.0-1_amd64.deb
+  - sudo apt install ./fpc-laz_3.2.0-1_amd64.deb
+
+install:
+  - cat kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt >kjvbible_x10.txt
+  - fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
+  - go build -o optimized-go optimized.go
+
+script:
+  - set -e
+  - echo Free Pascal optimized
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt  
+  - git diff --exit-code output.txt
+  - echo Go optimized
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./optimized-go <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - git diff --exit-code output.txt
+

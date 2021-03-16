@@ -3,7 +3,6 @@ unit FastIO;
 {$mode Delphi}{$H+}{$J-}
 {$ImplicitExceptions Off}
 {$RangeChecks Off}
-{$COperators On}
 
 interface
 
@@ -11,25 +10,14 @@ type
   FileFunc = procedure(var T: TextRec);
   PTextRec = ^TextRec;
 
-procedure FastLowerCase(PS: PChar); inline;
-procedure FastReadStr(PT: PTextRec; var S: ShortString); inline;
+procedure FastReadLowerStr(PT: PTextRec; var S: ShortString); inline;
 function FastCheckEOF(PT: PTextRec): Boolean; inline;
+function FastToStr(const I: PtrInt): ShortString; inline;
+function FastFormat(constref S: ShortString; const I: PtrInt): ShortString; inline;
 
 implementation
 
-procedure FastLowerCase(PS: PChar);
-var
-  I: PtrInt;
-  P: PChar absolute PS;
-begin
-  for I := 1 to Ord((P - 1)^) do begin
-    if P^ in ['A'..'Z'] then
-      P^ := Char(Byte(P^) + 32);
-    Inc(P);
-  end;
-end;
-
-procedure FastReadStr(PT: PTextRec; var S: ShortString);
+procedure FastReadLowerStr(PT: PTextRec; var S: ShortString);
 var
   C: Char;
   P: PChar;
@@ -41,7 +29,10 @@ begin
       FileFunc(PT^.InOutFunc)(PT^);
     C := PT^.BufPtr^[PT^.BufPos];
     Inc(PT^.BufPos);
-    if C in [#10, #32] then Break;
+    case C of
+      #10, #32: Break;
+      #65..#90: C := Char(Byte(C) or Byte(Byte(True) shl 5));
+    end;
     P^ := C;
     Inc(P);
     Inc(S[0]);
@@ -55,7 +46,22 @@ begin
     if PT^.BufPos >= PT^.BufEnd then
       Exit(True);
   end;
-  Result := CtrlZMarksEOF and (PT^.BufPtr^[PT^.BufPos] = #26);
+  {$ifndef Linux}
+    // The next line is always false on Linux, so don't bother with it there.
+    Result := CtrlZMarksEOF and (PT^.BufPtr^[PT^.BufPos] = #26);
+  {$else}
+    Result := False;
+  {$endif}
+end;
+
+function FastToStr(const I: PtrInt): ShortString;
+begin
+  Str(I, Result);
+end;
+
+function FastFormat(constref S: ShortString; const I: PtrInt): ShortString;
+begin
+  Result := S + ' ' + FastToStr(I) + #10;
 end;
 
 end.
