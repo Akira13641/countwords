@@ -13,7 +13,7 @@ type
 procedure FastReadLowerStr(PT: PTextRec; var S: ShortString); inline;
 function FastCheckEOF(PT: PTextRec): Boolean; inline;
 function FastToStr(const I: PtrInt): ShortString; inline;
-function FastFormat(var S: ShortString; const I: PtrInt): ShortString; inline;
+function FastFormat(constref S: ShortString; const I: PtrInt): ShortString; inline;
 
 implementation
 
