@@ -22,11 +22,15 @@ type
   // Some type aliases for the sake of convenience.
   TStrCounter = TGLiteHashMultiSetLP<ShortString, ShortString>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
-  THelper = TGRegularArrayHelper<TStrEntry>;
+  TStrEntryHelper = record helper for TStrEntry
+    class operator LessThan(constref L, R: TStrEntry): Boolean; inline;
+  end;
+  THelper = TGComparableArrayHelper<TStrEntry>;
 
   // We'll use this to sort our final array of string / integer pairs below.
-  function CompareEntries(const L, R: TStrEntry): Boolean; inline;
+  class operator TStrEntryHelper.LessThan(constref L, R: TStrEntry): Boolean;
   begin
+    // Force the largest-to-smallest order that we want
     Result := L.Count > R.Count;
   end;
 
@@ -56,7 +60,7 @@ begin
   // Get a contiguous array of all the string / count pairs.
   EA := SC.ToEntryArray();
   // Sort the array.
-  THelper.Sort(EA, CompareEntries);
+  THelper.Sort(EA);
   // Display the array.
   for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
