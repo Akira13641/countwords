@@ -78,5 +78,5 @@ begin
   for E in EA do with E do
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
-    Write(POut^, FastFormat(Key, Count));
+    WriteLn(POut^, Key, ' ', Count);
 end.
