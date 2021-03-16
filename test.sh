@@ -157,3 +157,8 @@ git diff --exit-code output.txt
 echo PHP simple
 php simple.php <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
+
+echo Free Pascal optimized
+fpc -B -Ci- -Cr- -Fu./freepascal -FU./freepascal/lib -Fu./freepascal/lib -Fu./freepascal/lgenerics -Fi./freepascal/lgenerics -g- -O4 -o ./optimzed-pascal -XXs ./freepascal/optimized.pas
+./optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
