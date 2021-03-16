@@ -76,7 +76,7 @@ begin
   THelper.Sort(EA);
   // Display the array.
   PFirst := @EA[0];
-  while PFirst < (@EA[High(EA)] + 1) do begin
+  while PFirst < PEntry(PEntry(@EA[High(EA)]) + 1) do begin
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
     with PFirst^ do
