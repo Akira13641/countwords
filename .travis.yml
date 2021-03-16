@@ -19,6 +19,10 @@ install:
 script:
   - set -e
   - echo Free Pascal optimized
-  - time ./fpascal/optimized-pascal < kjvbible_x10.txt | python3 normalize.py > output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+  - time ./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt  
   - git diff --exit-code output.txt
 
