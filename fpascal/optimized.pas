@@ -83,7 +83,7 @@ begin
   // Display the array.
   PFirst := @EA[0];
   PLast := @EA[High(EA)] + 1;
-  while PFirst != PLast do begin
+  while PFirst <> PLast do begin
     // Doing it this way instead of using `WriteLn` will force Unix newlines even on Windows, so as
     // to guarantee 'output.txt' matches with the original in terms of file size on all platforms.
     with PFirst^ do
