@@ -22,13 +22,13 @@ type
   // Some type aliases for the sake of convenience.
   TStrCounter = TGLiteHashMultiSetLP<ShortString, ShortString>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
-  TStrEntryHelper = record helper for TStrEntry
-    class operator LessThan(constref L, R: TStrEntry): Boolean; inline;
+  TStrEntryHelper = record
+    class function Less(constref L, R: TStrEntry): Boolean; static; inline;
   end;
-  THelper = TGComparableArrayHelper<TStrEntry>;
+  THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
   // We'll use this to sort our final array of string / integer pairs below.
-  class operator TStrEntryHelper.LessThan(constref L, R: TStrEntry): Boolean;
+  class function TStrEntryHelper.Less(constref L, R: TStrEntry): Boolean;
   begin
     // Force the largest-to-smallest order that we want
     Result := L.Count > R.Count;
