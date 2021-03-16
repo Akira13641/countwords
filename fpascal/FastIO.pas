@@ -40,7 +40,6 @@ begin
     if PT^.BufPos >= PT^.BufEnd then
       FileFunc(PT^.InOutFunc)(PT^);
     C := PT^.BufPtr^[PT^.BufPos];
-    Inc(PT^.BufPos);
     case C of
       #10, #32: Break;
       #65..#90: C := Char(Byte(C) or Byte(Byte(True) shl 5));
@@ -48,6 +47,7 @@ begin
     P^ := C;
     Inc(P);
     Inc(S[0]);
+    Inc(PT^.BufPos);
   end;
 end;
 
