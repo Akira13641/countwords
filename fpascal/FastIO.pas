@@ -12,6 +12,8 @@ type
 
 procedure FastReadLowerStr(PT: PTextRec; var S: ShortString); inline;
 function FastCheckEOF(PT: PTextRec): Boolean; inline;
+function FastToStr(I: PtrInt): ShortString; inline;
+function FastFormat(var S: ShortString; const I: PtrInt): ShortString; inline;
 
 implementation
 
@@ -50,6 +52,16 @@ begin
   {$else}
     Result := False;
   {$endif}
+end;
+
+function FastToStr(const I: PtrInt): ShortString;
+begin
+  Str(I, Result);
+end;
+
+function FastFormat(var S: ShortString; const I: PtrInt): ShortString;
+begin
+  Result := S + ' ' + FastToStr(I) + #10;
 end;
 
 end.
