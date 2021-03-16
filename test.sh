@@ -119,7 +119,7 @@ dotnet build ./csharp/optimized -c Release
 git diff --exit-code output.txt
 
 echo Swift simple
-swiftc simple.swift -O -o simple-swift 
+swiftc simple.swift -O -o simple-swift
 ./simple-swift <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
@@ -159,6 +159,6 @@ php simple.php <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
 echo Free Pascal optimized
-fpc -B -Ci- -Cr- -Fu./freepascal -FU./freepascal/lib -Fu./freepascal/lib -Fu./freepascal/lgenerics -Fi./freepascal/lgenerics -g- -O4 -o ./optimzed-pascal -XXs ./freepascal/optimized.pas
-./optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+fpc -B -Ci- -Cr- -Fi./freepascal/lgenerics/lgenerics -Fu./freepascal -FU./freepascal/lib -Fu./freepascal/lgenerics/lgenerics -g- -O4 -o./freepascal/optimized-pascal -XXs ./freepascal/optimized.pas
+./freepascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
