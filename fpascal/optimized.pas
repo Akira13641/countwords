@@ -10,14 +10,14 @@ program optimized;
 {$Warn 5058 Off}
 
 uses
-  // A few speed-optimized IO helper routines that do less "safety checks" internally
-  // than the defaults provided by the language implementation.
+  // A few helper record / helper function implementations to assist with what this program
+  // specifically does.
   utils,
   // Units from an excellent third-party generics library called 'LGenerics':
   // https://github.com/avk959/LGenerics
   lgArrayHelpers,
   lgHashMultiSet;
-  
+
   // `WriteLn` has a lot of complex internal formatting mechanics, since it's kind of a magic variadic
   // builtin and not even a "real" method at all, and so tends not to be quite as fast as the system
   // libc's `printf` implementation when called a large number of times in a row, particularly on Linux.
@@ -25,18 +25,18 @@ uses
     procedure printf(const Format: PChar); cdecl; varargs; external 'c' name 'printf';
   {$else if defined(Windows)}
     procedure printf(const Format: PChar); cdecl; varargs; external 'msvcrt' name 'printf';
-  {$endif}    
+  {$endif}
 
 // Some type aliases for the sake of convenience, and a sorting comparator implementation.
 type
-  TStrCounter = TGLiteHashMultiSetLP<ShortString, ShortString>.TMultiSet;
+  TStrCounter = TGLiteHashMultiSetLP<String30, TString30Helper>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
   PStrEntry = ^TStrEntry;
-  
+
   TStrEntryHelper = record
     class function Less(constref L, R: TStrEntry): Boolean; static; inline;
   end;
-  
+
   // The static sorting method we use later expects a function called `Less` to exist
   // with a signature that matches the following (for whatever `T` that `L` and `R might be).
   class function TStrEntryHelper.Less(constref L, R: TStrEntry): Boolean;
@@ -44,14 +44,14 @@ type
     // Force the largest-to-smallest order that we want.
     Result := L.Count > R.Count;
   end;
-  
+
 type
   THelper = TGBaseArrayHelper<TStrEntry, TStrEntryHelper>;
 
 var
   InBuf: array[0..65535] of Byte;
   PIn: PTextRec;
-  S: ShortString = '';
+  S: String30 = '';
   SC: TStrCounter;
   E: TStrEntry;
   EA: TStrCounter.TEntryArray;
