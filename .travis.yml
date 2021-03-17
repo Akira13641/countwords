@@ -14,7 +14,7 @@ before_install:
 
 install:
   - cat kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt >kjvbible_x10.txt
-  - fpc -B -Ci- -CfAVX2 -CpCOREAVX2 -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -OpCOREAVX2 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
+  - fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
   - go build -o optimized-go optimized.go
 
 script:
