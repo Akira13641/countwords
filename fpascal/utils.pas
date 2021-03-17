@@ -51,12 +51,12 @@ begin
   P := @S[1];
   S[0] := #0;
   while True do begin
-    if PT^.BufPos >= PT^.BufEnd then
-      FileFunc(PT^.InOutFunc)(PT^);
+    //if PT^.BufPos >= PT^.BufEnd then
+      //FileFunc(PT^.InOutFunc)(PT^);
     C := PT^.BufPtr^[PT^.BufPos];
     Inc(PT^.BufPos);
     case C of
-      #10, #32: Break;
+      #0, #4, #10, #32: Break;
       #65..#90: C := Char(Byte(C) or 32);
     end;
     P^ := C;
