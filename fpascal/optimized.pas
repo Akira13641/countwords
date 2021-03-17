@@ -29,7 +29,7 @@ uses
 
 // Some type aliases for the sake of convenience, and a sorting comparator implementation.
 type
-  TStrCounter = TGLiteHashMultiSetLP<String80, TStringHelper>.TMultiSet;
+  TStrCounter = TGLiteHashMultiSetLP<String80, TString80Helper>.TMultiSet;
   TStrEntry = TStrCounter.TEntry;
   PStrEntry = ^TStrEntry;
 
@@ -51,7 +51,7 @@ type
 var
   InBuf: array[0..65535] of Byte;
   PIn: PTextRec;
-  S: String80 = '';
+  S: String80;
   SC: TStrCounter;
   E: TStrEntry;
   EA: TStrCounter.TEntryArray;
