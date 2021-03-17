@@ -7,7 +7,7 @@ jobs:
     dist: focal
 
 before_install:
-  - wget -c ftp://ftp.freepascal.org/pub/fpc/snapshot/trunk/x86_64-linux/fpc-3.3.1.x86_64-linux.tar.gz
+  - curl -o fpc-3.3.1.x86_64-linux.tar.gz ftp://ftp.freepascal.org/pub/fpc/snapshot/trunk/x86_64-linux/fpc-3.3.1.x86_64-linux.tar.gz
   - tar -xvzf fpc-3.3.1.x86_64-linux.tar.gz
   - export PATH="./fpc-3.3.1.x86_64-linux/bin:$PATH"
   - fpc -iW
