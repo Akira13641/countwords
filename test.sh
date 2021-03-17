@@ -118,6 +118,21 @@ dotnet build ./csharp/optimized -c Release
 ./csharp/optimized/bin/Release/net5.0/optimized <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
+echo C# linq
+dotnet build ./csharp/linq -c Release
+./csharp/linq/bin/Release/net5.0/linq <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo F# simple
+dotnet build ./fsharp/simple -c Release
+./fsharp/simple/bin/Release/net5.0/simple <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo F# optimized
+dotnet build ./fsharp/optimized -c Release
+./fsharp/optimized/bin/Release/net5.0/optimized <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
 echo Swift simple
 swiftc simple.swift -O -o simple-swift
 ./simple-swift <kjvbible_x10.txt | python3 normalize.py >output.txt
@@ -130,6 +145,11 @@ git diff --exit-code output.txt
 echo nim simple
 nim c -d:danger -o:simple-nim simple.nim
 ./simple-nim <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo nim optimized
+nim c -d:danger -o:optimized-nim optimized.nim
+./optimized-nim <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
 echo Perl simple
@@ -158,7 +178,25 @@ echo PHP simple
 php simple.php <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt
 
-echo Free Pascal optimized
-fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
-./fpascal/optimized-pascal <kjvbible_x10.txt | python3 normalize.py >output.txt
+echo OCaml simple
+ocamlopt.opt -O3 simple.ml -o simple-ml
+OCAMLRUNPARAM=o=120,a=2 ./simple-ml <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo Lua simple
+luajit simple.lua <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo Lua optimized
+luajit optimized.lua <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo Kotlin simple JVM
+kotlinc simple.kt -no-reflect -include-runtime -jvm-target 14 -language-version 1.4 -d simple-kotlin.jar
+java -jar simple-kotlin.jar <kjvbible_x10.txt | python3 normalize.py >output.txt
+git diff --exit-code output.txt
+
+echo Zig simple
+zig build-exe -OReleaseFast --name simple-zig simple.zig
+./simple-zig <kjvbible_x10.txt | python3 normalize.py >output.txt
 git diff --exit-code output.txt

@@ -19,7 +19,7 @@ import sys
 
 def print_group(group):
     for word, count in sorted(group):
-        print(word, count)
+        print(word, count, end='\n')
 
 prev = None
 group = []
@@ -27,7 +27,7 @@ for line in sys.stdin:
     try:
         word, count = line.split()
     except ValueError:
-        print('cannot split: {!r}'.format(line), file=sys.stderr)
+        print('cannot split: {!r}'.format(line), file=sys.stderr, newline='\n')
         raise
     if count != prev:
         print_group(group)
