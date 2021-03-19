@@ -7,13 +7,13 @@ jobs:
     dist: focal
 
 before_install:
-  - tar -xvzf ./fpascal/fpc-3.3.1.x86_64-linux.tar.gz
-  - export PATH="./fpascal/fpc-3.3.1.x86_64-linux/bin:$PATH"
-  - fpc -iW
+  - tar -xvzf ./fpascal/fpc-3.3.1.x86_64-linux.tar.gz -C ./fpc-3.3.1.x86_64-linux
+  - export PATH="./fpc-3.3.1.x86_64-linux/bin:$PATH"
+  - ./fpc-3.3.1.x86_64-linux/bin/fpc -iW
 
 install:
   - cat kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt >kjvbible_x10.txt
-  - fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
+  - ./fpc-3.3.1.x86_64-linux/bin/fpc -B -Ci- -Cr- -Fi./fpascal/lgenerics/lgenerics -Fu./fpascal -FU./fpascal/lib -Fu./fpascal/lgenerics/lgenerics -g- -O4 -o./fpascal/optimized-pascal -XXs ./fpascal/optimized.pas
   - go build -o optimized-go optimized.go
 
 script:
