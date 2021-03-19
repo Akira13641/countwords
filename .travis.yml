@@ -7,6 +7,7 @@ jobs:
     dist: focal
 
 before_install:
+  - mkdir -p ./fpc-3.3.1.x86_64-linux
   - tar -xvzf ./fpascal/fpc-3.3.1.x86_64-linux.tar.gz -C ./fpc-3.3.1.x86_64-linux
   - export PATH="./fpc-3.3.1.x86_64-linux/bin:$PATH"
   - ./fpc-3.3.1.x86_64-linux/bin/fpc -iW
