@@ -7,10 +7,9 @@ jobs:
     dist: focal
 
 before_install:
-  - wget -c https://versaweb.dl.sourceforge.net/project/lazarus/Lazarus%20Linux%20amd64%20DEB/Lazarus%202.0.12/fpc-src_3.2.0-1_amd64.deb
-  - wget -c https://cfhcable.dl.sourceforge.net/project/lazarus/Lazarus%20Linux%20amd64%20DEB/Lazarus%202.0.12/fpc-laz_3.2.0-1_amd64.deb
-  - sudo apt install ./fpc-src_3.2.0-1_amd64.deb
-  - sudo apt install ./fpc-laz_3.2.0-1_amd64.deb
+  - tar -xvzf ./fpascal/fpc-3.3.1.x86_64-linux.tar.gz
+  - export PATH="./fpascal/fpc-3.3.1.x86_64-linux/bin:$PATH"
+  - fpc -iW
 
 install:
   - cat kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt kjvbible.txt >kjvbible_x10.txt
