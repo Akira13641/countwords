@@ -13,7 +13,7 @@ type
   // much for our use case here, so we use a custom-defined type for the sake of efficiency. It's
   // declared as a normal array of char instead of `String[80]` to work around an FPC 3.2.0 bug when
   // trying to use it as a generic parameter.
-  String80 = array[0..79] of Char;
+  String80 = String[80];
   FileFunc = procedure(var T: TextRec);
   PTextRec = ^TextRec;
 

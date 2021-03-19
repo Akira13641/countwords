@@ -5,6 +5,7 @@ program optimized;
 // By default Free Pascal generates exception handling code to pad certain things,
 // which for our extremely performance-focused purposes here is not desirable.
 {$ImplicitExceptions Off}
+{$RangeChecks Off}
 // Suppresses a spurious warning about a static array buffer we use below not being "initialized",
 // which is in no way necessary in this particular context.
 {$Warn 5058 Off}
@@ -51,7 +52,7 @@ type
 var
   InBuf: array[0..65535] of Byte;
   PIn: PTextRec;
-  S: String80;
+  S: String80 = '';
   SC: TStrCounter;
   E: TStrEntry;
   EA: TStrCounter.TEntryArray;
